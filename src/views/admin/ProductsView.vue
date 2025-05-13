@@ -1,12 +1,14 @@
 <script setup>
-  import MainNav from '@/components/MainNav.vue';
+
 </script>
+
+
 
 <template>
   <div>
-    <MainNav />
+    <h1>Desde Admin</h1>
+
   </div>
 </template>
-
 
 
