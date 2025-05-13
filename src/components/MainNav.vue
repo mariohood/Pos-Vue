@@ -10,13 +10,17 @@ import Logo from './Logo.vue';
     <div>
       <Logo />
     </div>
+
     <nav>
+      
+
       <Link 
         to="admin"
       >
         Administrar
       </Link>
     </nav>
+
   </header>
 </template>
 
