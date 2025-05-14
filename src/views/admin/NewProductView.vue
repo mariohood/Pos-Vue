@@ -35,6 +35,36 @@
             :validation-messages="{required: 'La Imagen del Producto es Obligatoria'}"
             accept=".jpg"
           />
+
+          <FormKit
+            type="select"
+            label="Categoría"
+            name="category"
+            validation="required"
+            :validation-messages="{required: 'La Categoría es Obligatoria'}"
+            :options="[1,2,3]"
+          />
+
+          <FormKit
+            type="number"
+            label="Precio"
+            name="price"
+            placeholder="Precio del Producto"
+            validation="required"
+            :validation-messages="{required: 'El Precio es Obligatorio'}"
+            min="1"
+          />
+
+          <FormKit
+            type="number"
+            label="Disponibles"
+            name="availability"
+            placeholder="Cantidad disponible"
+            validation="required"
+            :validation-messages="{required: 'La cantidad es Obligatoria'}"
+            min="1"
+          />
+
         </FormKit>
       </div>    
 
