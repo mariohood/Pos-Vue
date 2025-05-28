@@ -1,39 +1,49 @@
 <script setup>
-      import { watch, reactive } from 'vue'
-      import { useRoute, useRouter  } from 'vue-router'
-      import {  doc  } from 'firebase/firestore'
-      import { useFirestore, useDocument } from 'vuefire'
-      import Link from '@/components/Link.vue';
-      import { useProductsStore } from '@/stores/products';
-      import useImage from '@/composables/useImage'
+  import { watch, reactive } from 'vue'
+  import { useRoute, useRouter  } from 'vue-router'
+  import {  doc  } from 'firebase/firestore'
+  import { useFirestore, useDocument } from 'vuefire'
+  import Link from '@/components/Link.vue';
+  import { useProductsStore } from '@/stores/products';
+  import useImage from '@/composables/useImage'
 
-      // Consultar Firestore
+  // Consultar Firestore
 
-      const route = useRoute()
-      const router = useRouter()
-      const db = useFirestore()
-      const docRef = doc(db, 'products', route.params.id)
-      const product = useDocument(docRef)
-      
+  const route = useRoute()
+  const router = useRouter()
+  const db = useFirestore()
+  const docRef = doc(db, 'products', route.params.id)
+  const product = useDocument(docRef)
+  
 
-      const { onFileChange,  url, isImageUploaded } = useImage()
-      const products = useProductsStore()
+  const { onFileChange,  url, isImageUploaded } = useImage()
+  const products = useProductsStore()
 
 
-      const formData = reactive({
-          name: '',
-          category: '',
-          price: '',
-          availability: '',
-          image: ''
-      })
+  const formData = reactive({
+      name: '',
+      category: '',
+      price: '',
+      availability: '',
+      image: ''
+  })
 
-      watch(product, (product) => {
-        if(!product) {
-          router.push({ name: 'products' })
-        }
-        Object.assign(formData, product)
-      })
+  watch(product, (product) => {
+    if(!product) {
+      router.push({ name: 'products' })
+    }
+    Object.assign(formData, product)
+  })
+
+  const submitHandler = async data => {
+    try {
+      await products.updateProduct(docRef, {...data, url})
+      router.push({ name: 'products' })
+    } catch (error) {
+        console.log(error)
+    }
+  }
+
 
 </script>
 
@@ -101,7 +111,7 @@
                         <p class="font-black">Imagen Nueva:</p>
                         <img    
                           :src="url"
-                          alt="Nueva imagen Producto" 
+                          alt="Nueva representaçao Producto" 
                           class="w-52"
                         />  
                     </div>
@@ -110,7 +120,7 @@
                         <p class="font-black">Imagen Actual:</p>
                         <img  
                           :src="formData.image"
-                          :alt="'Imagen de' + formData.image" 
+                          :alt="'Representação de' + formData.image" 
                           class="w-52"
                         />  
                     </div>
